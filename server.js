@@ -19,16 +19,17 @@ connectDB();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-    origin: "*", // Make sure to change this to your Netlify URL when you deploy!
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: ["https://seniorshield.netlify.app", "http://localhost:3000", "http://127.0.0.1:3000"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
 }));
 
 // Setup Socket.io (The Magic Tube for ESP32 real-time alerts)
 const io = new Server(server, {
     cors: {
-        origin: "*", 
-        methods: ["GET", "POST"]
+        origin: ["https://seniorshield.netlify.app", "http://localhost:3000", "http://127.0.0.1:3000"], // Crucial for Socket.io
+        methods: ["GET", "POST", "OPTIONS"],
+        credentials: true,
     }
 });
 
